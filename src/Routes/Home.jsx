@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Card from '../Components/Card'
 import { useDentistStates } from '../Context';
 
@@ -8,17 +8,14 @@ import { useDentistStates } from '../Context';
 const Home = () => {
   const{state} = useDentistStates();
   // console.log(state);
-
-
   return (
     <main className="" >
       <h1>CLINICA ODONTOLOGICA</h1>
       <div className='card-grid'>
-        {state.list.map((dentista) => <Card key={dentista.id} item={dentista}/>)}
-        {/* Aqui deberias renderizar las cards */}
+      {state && state.list && state.list.map((dentista) => <Card key={dentista.id} item={dentista} />)} 
+      {/* Aqui deberias renderizar las cards */}
       </div>
     </main>
   )
 }
-
 export default Home
