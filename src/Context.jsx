@@ -13,7 +13,8 @@ const initialState = {
 
 const Context = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(state);
+    console.log(state)
+
 useEffect(()=> {
     axios('https://jsonplaceholder.typicode.com/users')
     .then(res => {
@@ -21,6 +22,10 @@ useEffect(()=> {
         dispatch({type: 'GET_LIST', payload: res.data})
     })    
 }, [])
+
+// useEffect(()=> {
+//     localStorage.setItem('favs', state.favs)
+// }, [state.favs])
 
     return (
         <DentistStates.Provider value={{state, dispatch}}>

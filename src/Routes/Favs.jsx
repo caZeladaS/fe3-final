@@ -6,13 +6,13 @@ import { useDentistStates } from "../Context";
 
 const Favs = () => {
 
-  const {state} = useDentistStates()
+  const favsItem = JSON.parse(localStorage.getItem('favs')) || []
 
   return (
     <>
       <h1>Dentists Favs</h1>
       <div className="card-grid">
-        {state.favs.map((dentist)=>  <Card key={dentist.id} item={dentist}/> )}
+        {favsItem.map((dentist)=>  <Card key={dentist.id} item={dentist}/> )}
         {/* este componente debe consumir los destacados del localStorage */}
         {/* Deberan renderizar una Card por cada uno de ellos */}
       </div>
