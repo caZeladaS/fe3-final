@@ -4,9 +4,13 @@ import { useDentistStates } from "../Context";
 
 const Card = ({item}) => {
 const { name, username, id } = item
-const {dispatch} = useDentistStates() 
+const {state, dispatch} = useDentistStates() 
 
-  const addFav = ()=>{
+  const addFavs = ()=>{
+    const favsItems = JSON.parse(localStorage.getItem('favs')) || []
+    dispatch({type: 'ADD_CART', payload: item})
+    localStorage.setItem('favs', JSON.stringify([...favsItems, item]))
+    
     // Aqui iria la logica para agregar la Card en el localStorage
   }
 
@@ -16,7 +20,7 @@ const {dispatch} = useDentistStates()
       <Link to={'/detail/' + item.id}><h3>{name}</h3></Link>
       <h4>{username}</h4>
       <h4>{id}</h4>
-      <button onClick={() => dispatch({type: 'ADD_FAVS', payload: item})}>Favorito</button>
+      <button onClick={addFavs}>Favorito</button>
         {/* En cada card deberan mostrar en name - username y el id */}
 
         {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}

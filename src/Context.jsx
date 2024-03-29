@@ -1,34 +1,59 @@
 import axios from 'axios';
-import { createContext, useContext, useReducer, useEffect } from 'react';
-import { reducer } from './reducer/reducer';
+import React, { createContext, useContext, useReducer, useEffect, useMemo } from 'react';
 
-const DentistStates = createContext()
-
+// Estado inicial combinado
 const initialState = {
-        favs: [],
-        list: [],
-        // theme: '' o 'dark'
-        // theme: true o false
-}
+    favs: [],
+    list: [],
+    theme: 'light', // o 'dark'
+};
 
-const Context = ({children}) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(state);
-useEffect(()=> {
-    axios('https://jsonplaceholder.typicode.com/users')
-    .then(res => {
-        // console.log(res);
-        dispatch({type: 'GET_LIST', payload: res.data})
-    })    
-}, [])
+// Acciones combinadas
+export const actionTypes = {
+    TOGGLE_THEME: 'TOGGLE_THEME',
+    GET_LIST: 'GET_LIST',
+};
+
+// Reductor combinado
+const combinedReducer = (state, action) => {
+    switch (action.type) {
+        case actionTypes.TOGGLE_THEME:
+            return {
+                ...state,
+                theme: state.theme === 'light' ? 'dark' : 'light',
+            };
+        case actionTypes.GET_LIST:
+            return {
+                ...state,
+                list: action.payload,
+            };
+        default:
+            return state;
+    }
+};
+
+// Creación del contexto combinado
+export const CombinedContext = createContext(initialState);
+
+// Proveedor del contexto combinado
+export const CombinedContextProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(combinedReducer, initialState);
+
+    useEffect(() => {
+        axios('https://jsonplaceholder.typicode.com/users')
+            .then(res => {
+                dispatch({ type: actionTypes.GET_LIST, payload: res.data });
+            });
+    }, []);
+
+    const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
     return (
-        <DentistStates.Provider value={{state, dispatch}}>
+        <CombinedContext.Provider value={value}>
             {children}
-        </DentistStates.Provider>
-    )
-}
+        </CombinedContext.Provider>
+    );
+};
 
-export default Context
-
-export const useDentistStates = () => useContext(DentistStates)
+// Hook personalizado para consumir el contexto combinado
+export const useCombinedContext = () => useContext(CombinedContext);
