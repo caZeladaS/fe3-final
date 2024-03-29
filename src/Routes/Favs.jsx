@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../Components/Card";
-import { useDentistStates } from "../Context";
+import { useContextGlobal } from "../Context";
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 

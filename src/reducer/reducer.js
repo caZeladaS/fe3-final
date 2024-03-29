@@ -4,7 +4,5 @@ export const reducer = (state, action) => {
             return {...state, list: action.payload}
         case 'ADD_FAVS':
             return {...state, favs: [...state.favs, action.payload]}
-        case 'CHANGE_THEME':
-            return {}
     }
 }

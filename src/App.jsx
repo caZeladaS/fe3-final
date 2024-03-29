@@ -5,15 +5,13 @@ import Home from "./Routes/Home";
 import Contact from "./Routes/Contact";
 import Detail from "./Routes/Detail";
 import Favs from "./Routes/Favs";
-import { ContextProvider } from './Components/utils/global.context';
-import Context from './Context';
+import {CombinedContextProvider}  from './Context';
 
 
 function App() {
   return (
       <div className="App">
-        <ContextProvider>
-          <Context>
+          <CombinedContextProvider >
             <Navbar/>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -23,8 +21,7 @@ function App() {
               <Route path="*" element={ <h1>Ruta no encontrada...  </h1> }/> 
             </Routes>
             <Footer/>
-          </Context>
-        </ContextProvider>
+          </CombinedContextProvider>
       </div>
   );
 }

@@ -1,10 +1,11 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-import { useDentistStates } from "../Context";
+import { useContextGlobal } from "../Context";
+import imageDoctor from '../img/doctor.jpg'
 
 const Card = ({item}) => {
 const { name, username, id } = item
-const {state, dispatch} = useDentistStates() 
+const {state,dispatch} = useContextGlobal() 
 
   const addFavs = ()=>{
     const favsItems = JSON.parse(localStorage.getItem('favs')) || []
@@ -16,7 +17,7 @@ const {state, dispatch} = useDentistStates()
 
   return (
     <div className="card">
-      <img src="../img/doctor.jpg" alt="" />
+      <img width={100} src={imageDoctor} alt="imageDoctor" />
       <Link to={'/detail/' + item.id}><h3>{name}</h3></Link>
       <h4>{username}</h4>
       <h4>{id}</h4>
