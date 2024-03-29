@@ -1,16 +1,51 @@
-import React from 'react'
-
-//Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "../Routes/Home";
+import Contact from "../Routes/Contact";
+import Detail from "../Routes/Detail";
+import Favs from "../Routes/Favs";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   return (
-    <nav>
-      {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
-      {/* Deberan implementar ademas la logica para cambiar de Theme con el button */}
-      <button>Change theme</button>
-    </nav>
-  )
-}
+    <Router>
+      <div className={theme}>
+        <nav>
+          <ul>
+            <li>
+              <a href="/">INICIO</a>
+            </li>
+            <li>
+              <a href="/contact">CONTACTO</a>
+            </li>
+            <li>
+              <a href="/detail">PROFESIONALES</a>
+            </li>
+            <li>
+              <a href="/favs">FAVORITOS</a>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/favs" element={<Favs />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <button onClick={toggleTheme}>Change theme</button>
+      </div>
+    </Router>
+  );
+};
 
-export default Navbar
+const NotFound = () => {
+  return <h2>404 - Not Found</h2>;
+};
+
+export default Navbar;
