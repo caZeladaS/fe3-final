@@ -47,6 +47,21 @@ export const CombinedContextProvider = ({ children }) => {
     }, []);
 
     const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+const Context = ({children}) => {
+    const [state, dispatch] = useReducer(reducer, initialState)
+    console.log(state)
+
+useEffect(()=> {
+    axios('https://jsonplaceholder.typicode.com/users')
+    .then(res => {
+        // console.log(res);
+        dispatch({type: 'GET_LIST', payload: res.data})
+    })    
+}, [])
+
+// useEffect(()=> {
+//     localStorage.setItem('favs', state.favs)
+// }, [state.favs])
 
     return (
         <CombinedContext.Provider value={value}>

@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useReducer, useMemo } from "react";
 
 
+export const initialState = { theme: "light", data: [] };
+
+// Acciones
+export const actionTypes = {
+  TOGGLE_THEME: 'TOGGLE_THEME',
+};
 
 // Reductor
 const reducer = (state, action) => {
