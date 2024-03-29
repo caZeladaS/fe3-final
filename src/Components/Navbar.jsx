@@ -18,23 +18,23 @@ const Navbar = () => {
         <nav>
           <ul>
             <li>
-              <a href="/">INICIO</a>
+              <a href="/">Home</a>
             </li>
             <li>
-              <a href="/contact">CONTACTO</a>
+              <a href="/contact">Contact</a>
             </li>
             <li>
-              <a href="/detail">PROFESIONALES</a>
+              <a href="/detail/:id">Detail</a>
             </li>
             <li>
-              <a href="/favs">FAVORITOS</a>
+              <a href="/favs">favs</a>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/favs" element={<Favs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
