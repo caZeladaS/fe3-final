@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContextGlobal } from '../Context'; // Importación del hook personalizado
+import { useContextGlobal } from '../Context'; 
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -10,12 +10,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar ${state.theme}`}>
-      <h1>DH Odonto</h1>
-        <Link to='/'>Home</Link>
-        <Link to='/contact'>Contact</Link>
-        <Link to='/favs'>Favs</Link>
-        <button onClick={toggleTheme}>Cambiar de tema a {state.theme === "light" ? "Oscuro" : "Claro"}</button>
+    <nav className={`nav ${state.theme}`}>
+      <Link to='/'><h1>DH Odonto</h1></Link>
+      <div className='button-nav'>
+      <Link to='/contact'>Contact</Link>
+      <Link to='/favs'>Favs</Link>
+      <button onClick={toggleTheme}>Theme {state.theme === "light" ? "Dark" : "Light"}</button>
+      </div>
     </nav>
   )
 }

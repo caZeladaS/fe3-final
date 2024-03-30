@@ -11,7 +11,7 @@ const Favs = () => {
   const themeClass = globalState.theme === 'dark' ? 'dark' : 'light';
 
   return (
-    <div className={`contact ${themeClass}`}>
+    <div className={`${themeClass}`}>
       <h1>Dentists Favs</h1>
       <div className="card-grid">
         {favsItem.map((dentist)=>  <Card key={dentist.id} item={dentist}/> )}

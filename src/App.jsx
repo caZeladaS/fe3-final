@@ -10,7 +10,7 @@ import {CombinedContextProvider}  from './Context';
 
 function App() {
   return (
-      <div className="App">
+      <div className="App code">
         <CombinedContextProvider >
           <Navbar/>
           <Routes>

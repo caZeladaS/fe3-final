@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
 const Form = () => {
-  const [formValues, setFormValues] = useState({ name: "", email: "" });
+  const [formValues, setFormValues] = useState({ name: "", email: "", subject: "" });
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+
   };
 
   const validateForm = (values) => {
@@ -25,9 +26,11 @@ const Form = () => {
     } else if (!regexEmail.test(values.email)) {
       errors.email = "El formato del email no es correcto";
     }
+
     if (!values.subject) {
       errors.subject = "El asunto es requerido";
     }
+
     return errors;
   };
 
@@ -35,8 +38,7 @@ const Form = () => {
     e.preventDefault();
     const errors = validateForm(formValues);
     if (Object.keys(errors).length === 0) {
-      // Aquí podrías enviar los datos a un servidor si no hay errores
-      console.log(formValues);
+  
     } else {
       setFormErrors(errors);
     }
@@ -45,7 +47,8 @@ const Form = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nombre</label>
+      <code>Send us your questions and we will contact you</code>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
@@ -65,24 +68,23 @@ const Form = () => {
           onChange={handleChange}
           required
         />
-        
         {formErrors.email && <p>{formErrors.email}</p>}
 
-        <label htmlFor="subject">Asunto</label>
-        <input
+        <label htmlFor="subject">Subject</label>
+        <textarea
+          className="textarea"
           id="subject"
           name="subject"
-          type="text"
           value={formValues.subject}
           onChange={handleChange}
           required
+          rows="3"
         />
         {formErrors.subject && <p>{formErrors.subject}</p>}
-        <button type="submit">Enviar</button>
+        <button type="submit" className="contactButton">Send</button>
       </form>
     </div>
   );
 };
 
 export default Form;
-
